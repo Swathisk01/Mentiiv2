@@ -1,0 +1,200 @@
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art therapy</title>
+    <link rel="stylesheet" href="css/art.css">
+</head>
+<body>
+    
+
+    <section>
+       <img src="assets/new.jpg" class="mount2">
+        <img src="assets/Flappy.jpg" class="mount1">
+        <img src="assets/calm.png" class="mount2"> 
+        <h2 id="text"><span>It is also </span>It is art</h2>
+        <a href="http://" id="btn">Join Now</a>
+    </section>
+    <div class="sec">
+        <h2>Parallex Scrolling Effects</h2>
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. <br>Eum ratione nihil veniam quo voluptatibus natus voluptates totam.
+        </p>
+    </div>
+
+</body>
+</html>-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Community</title>
+    <link rel="stylesheet" href="css/art.css">
+</head>
+<style>
+:root {
+  --text: hsl(0, 0%, 100%);
+  --background: hsl(200, 12%, 5%);
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: var(--background);
+  color: var(--text);
+}
+
+.mainp {
+  max-width: 1200px;
+  margin-inline: auto;
+  /* border-inline: 1px solid ;*/
+}
+
+.bento {
+  margin-block: 10rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  height: 30rem;
+  gap: 1rem;
+}
+
+.bento-card {
+  inline-size: 100%;
+  background: center / cover;
+  border-radius: 1rem;
+
+  &:nth-child(1) {
+    grid-column: span 2;
+    grid-row: span 5;
+  }
+  &:nth-child(2), &:nth-child(5) {
+    grid-row: span 2;
+  }
+  &:nth-child(3), &:nth-child(4) {
+    grid-row: span 3;
+  }
+}
+
+
+.bento-hover .bento-card {
+    transition: 500ms;
+
+  &:hover {
+    scale: 1.01;
+  }
+} 
+
+.bento-hover:hover .bento-card:not(:hover) {
+  filter: saturate(50%) brightness(50%);
+}
+
+
+
+.bento-perspective {
+
+  
+    transform: perspective(1000px) rotateY(12deg) scaleX(1.372);
+    transform-origin: left;
+}</style>
+<body>
+    
+<div class="container">
+    <h1>Art Community</h1>
+    <p>In today's fast-paced world, many of us face the challenges of depression and stress. Navigating these difficult emotions can often feel isolating and overwhelming. However, you don't have to go through it alone. Our art community is dedicated to providing support, understanding, and practical tools to help you find relief and rediscover joy through creativity.</p>
+    <a href="https://discord.com/invite/vmMmeTj4">Join Now on Discord</a>
+  </div>
+  
+  <div class="blank">
+    <main class="mainp">
+      <c>
+      <section class="bento">
+        <div class="bento-card" style="background-image: url('https://i.pinimg.com/736x/73/84/f2/7384f224a770d3ec5127fc9716c84458.jpg')">
+        </div>
+        <div class="bento-card" style="background-image: url('https://i.pinimg.com/736x/6f/db/f4/6fdbf47b94feb0b193d196cdefd26355.jpg')">
+    
+        </div>
+        <div class="bento-card" style="background-image: url('https://i.pinimg.com/236x/fb/32/0f/fb320f9c5385658227d358bf7e94ded8.jpg')">
+    
+        </div>
+        <div class="bento-card" style="background-image: url('https://i.pinimg.com/474x/2c/f1/bb/2cf1bbd1692cab92b0d3b970e369c75c.jpg')">
+    
+        </div>
+        <div class="bento-card" style="background-image: url('https://i.pinimg.com/474x/9e/db/44/9edb44e967017d0952487868e6478dab.jpg')">
+    
+        </div>
+      </section>
+    
+      <!--
+       <section class="bento bento-hover">
+        <div class="bento-card" style="background-image: url('https://i.pinimg.com/564x/40/88/42/4088426a85e277e4fd402cf5a6723bf0.jpg')">
+        </div>
+        <div class="bento-card" style="background-image: url('https://i.pinimg.com/564x/ac/d6/dc/acd6dc13373dab014630b9739820f86c.jpg')">
+    
+        </div>
+        <div class="bento-card" style="background-image: url('https://i.pinimg.com/236x/9b/3b/10/9b3b10ff88cf3bebe7577484b4945eb1.jpg')">
+    
+        </div>
+        <div class="bento-card" style="background-image: url('https://i.pinimg.com/564x/1d/13/07/1d1307b368bd7945d0c800e1e0d1505d.jpg')">
+    
+        </div>
+        <div class="bento-card" style="background-image: url('https://i.pinimg.com/474x/e7/a6/fe/e7a6fee0d5d4f83d5a0b6bb5879883a9.jpg')">
+    
+        </div>
+      </section>
+      
+       <section class="bento bento-perspective">
+        <div class="bento-card" style="background-image: url('https://i.pinimg.com/736x/b4/cc/b3/b4ccb3c403f03b29d3053bc845a4bac6.jpg')">
+        </div>
+        <div class="bento-card" style="background-image: url('https://i.pinimg.com/236x/da/f6/23/daf62313270d07279e52f9f14e52efdc.jpg')">
+    
+        </div>
+        <div class="bento-card" style="background-image: url('https://i.pinimg.com/236x/fb/6c/63/fb6c631624932697912b7a63bef0622c.jpg')">
+    
+        </div>
+        <div class="bento-card" style="background-image: url('https://i.pinimg.com/236x/32/bc/dc/32bcdc1b81c3a19000de5007ade2f4e4.jpg')">
+    
+        </div>
+        <div class="bento-card" style="background-image: url('https://i.pinimg.com/236x/e8/b5/4b/e8b54bd25ee7425e68fb1b7b1359a826.jpg')">
+    
+        </div>
+      </section>
+      
+       
+      </section>
+    </main>
+  </div>
+  <!---
+  <div class="container second">
+    <div class="item">
+      <div class="img img-first"></div>
+      <div class="card">
+        <h3>Rock climbing</h3>
+        <p>The goal is to reach the summit of a formation or the endpoint of a usually pre-defined route without falling</p>
+        <a href="#">Learn more</a>
+      </div>
+    </div>
+    <div class="item">
+      <div class="img img-second"></div>
+      <div class="card">
+        <h3>Caving</h3>
+        <p>Exploring underground through networks of tunnels and passageways, which can be natural or artificial.</p>
+        <a href="#">Learn more</a>
+      </div>
+    </div>
+    <div class="item">
+      <div class="img img-third"></div>
+      <div class="card">
+        <h3>Parachuting</h3>
+        <p>Jumping from an aeroplane and falling through the air before opening your parachute.</p>
+        <a href="#">Learn more</a>
+      </div>
+    </div>
+  </div>-->
+  
+  <div class="blank"></div>
+  </html>
+</body>
+</html>
