@@ -1,0 +1,203 @@
+/* styles.css
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f8ff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-y: auto; 
+}
+
+.streak-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffd700;
+    padding: 10px 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 18px;
+}
+
+.test-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 600px; 
+    margin: 80px auto; 
+    box-sizing: border-box;
+}
+
+h1 {
+    font-size: 26px;
+    color: #ff69b4;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 16px;
+    color: #888888;
+    margin-bottom: 20px;
+}
+
+#questions-container {
+    margin-bottom: 20px;
+}
+
+.question-block {
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.question-block p {
+    font-size: 16px;
+    color: #444444;
+    margin-bottom: 10px;
+}
+
+.response-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+textarea {
+    flex-grow: 1;
+    padding: 10px;
+    border: 2px solid #ffcccb;
+    border-radius: 10px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.3s;
+    resize: none;
+    min-height: 60px;
+    font-size: 14px;
+}
+
+textarea:focus {
+    border-color: #ff69b4;
+}
+
+button {
+    padding: 12px 25px;
+    border-radius: 25px;
+    background-color: #ff69b4;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #ff1493;
+}
+
+#record-btn {
+    background-color: #ffcccb;
+    border-radius: 50%;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #ff69b4;
+    transition: background-color 0.3s;
+}
+
+#record-btn:hover {
+    background-color: #ffb3b3;
+}
+
+.message {
+    color: #ff69b4;
+    margin-top: 15px;
+    font-size: 14px;
+} */
+
+
+/* Example styles for the streak and test form */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f8ff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-y: auto;
+}
+
+.streak-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffd700;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    color: white;
+    font-size: 18px;
+}
+
+.test-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    margin: 100px auto;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #ff69b4;
+}
+
+.question-block {
+    margin-bottom: 20px;
+}
+
+.response-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+#record-btn {
+    background-color: #ff69b4;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+button#submit-btn {
+    background-color: #ff69b4;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
