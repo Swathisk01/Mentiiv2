@@ -1,0 +1,58 @@
+/* Styles for the question container and toggle buttons */
+.question {
+    margin-bottom: 1.5em;
+    margin-left: 300px ;
+}
+
+.question label {
+    display: block;
+    font-size: 1.2em;
+    margin-bottom: 0.5em;
+}
+
+.toggle-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.toggle-buttons input[type="radio"] {
+    display: none;
+}
+
+.toggle-buttons label {
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.toggle-buttons input[type="radio"]:checked + label {
+    background-color: #4CAF50;
+    color: white;
+    border-color: #4CAF50;
+}
+
+.toggle-buttons label:hover {
+    background-color: #e0e0e0;
+}
+
+#submit {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: 300px ;
+}
+
+#submit:hover {
+    background-color: #19e919;
+}
+
+#result {
+    margin-top: 1.5em;
+    font-size: 1.2em;
+}

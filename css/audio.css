@@ -1,0 +1,55 @@
+.music-player {
+    max-width: 300px;
+    margin: 0 auto;
+    text-align: center;
+    background-color: #f8f8f8;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.controls {
+    margin-top: 20px;
+}
+
+button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+input[type="range"] {
+    width: 100%;
+    margin-top: 10px;
+}
+
+#album-art {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+#album-art:hover {
+    transform: scale(1.05);
+}
+
+audio {
+    outline: none;
+}
+
+@media (max-width: 768px) {
+    .music-player {
+        max-width: 90%;
+    }
+}
