@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Journal</title>
+    <!-- Firebase SDK -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.8.0/firebase-app-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.8.0/firebase-auth-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.8.0/firebase-firestore-compat.min.js"></script>
+    <style>
+        /* Previous CSS styles remain the same */
+        /* Adding styles for auth UI */
+        .auth-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .auth-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .auth-input {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .auth-button {
+            background: #557153;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .auth-button:hover {
+            background: #455943;
+        }
+
+        .user-info {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logout-button {
+            background: #557153;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Auth UI -->
+    <div id="authContainer" class="auth-container" style="display: none;">
+        <div class="auth-box">
+            <h2 style="color: #557153; margin-bottom: 1rem;">Daily Journal Login</h2>
+            <input type="email" id="emailInput" placeholder="Email" class="auth-input">
+            <input type="password" id="passwordInput" placeholder="Password" class="auth-input">
+            <button onclick="login()" class="auth-button">Login</button>
+            <button onclick="signup()" class="auth-button" style="background: #666;">Sign Up</button>
+        </div>
+    </div>
+
+    <!-- User Info -->
+    <div id="userInfo" class="user-info" style="display: none;">
+        <span id="userEmail"></span>
+        <button onclick="logout()" class="logout-button">Logout</button>
+    </div>
+
+    <!-- Previous HTML structure remains the same -->
+
+    <script>
+        // Firebase configuration - Replace with your config
+        const firebaseConfig = {
+             apiKey: "AIzaSyDu6BXkk9LpO_R7ngE0uLIBbr8_fgqSano",
+  authDomain: "mentiiv2.firebaseapp.com",
+  projectId: "mentiiv2",
+  storageBucket: "mentiiv2.appspot.com",
+  messagingSenderId: "895896856825",
+  appId: "1:895896856825:web:bc28a0196e9a57b2ed1a28",
+  measurementId: "G-P7WSFN9VX6"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        console.log('Firebase initialized:', firebase.app.name);
+        // Auth functions
+        function login() {
+            const email = document.getElementById('emailInput').value;
+            const password = document.getElementById('passwordInput').value;
+            
+            auth.signInWithEmailAndPassword(email, password)
+                .catch(error => alert(error.message));
+        }
+
+        function signup() {
+            const email = document.getElementById('emailInput').value;
+            const password = document.getElementById('passwordInput').value;
+            
+            auth.createUserWithEmailAndPassword(email, password)
+                .catch(error => alert(error.message));
+        }
+
+        function logout() {
+            auth.signOut();
+        }
+
+        // Auth state observer
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                document.getElementById('authContainer').style.display = 'none';
+                document.getElementById('userInfo').style.display = 'flex';
+                document.getElementById('userEmail').textContent = user.email;
+                loadUserData();
+            } else {
+                document.getElementById('authContainer').style.display = 'flex';
+                document.getElementById('userInfo').style.display = 'none';
+                clearForm();
+            }
+        });
+
+        // Data management functions
+        async function saveJournalEntry() {
+            const user = auth.currentUser;
+            if (!user) return;
+
+            const date = new Date().toISOString().split('T')[0];
+            const data = {
+                mood: document.querySelector('.mood-emoji[style*="background-color"]')?.textContent || '',
+                dailyNote: document.querySelector('.daily-note textarea').value,
+                todos: Array.from(document.querySelectorAll('.todo-item')).map(item => ({
+                    text: item.querySelector('input[type="text"]').value,
+                    completed: item.querySelector('input[type="checkbox"]').checked
+                })),
+                gratitude: document.querySelector('.gratitude textarea').value,
+                lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+            };
+
+            try {
+                await db.collection('users').doc(user.uid)
+                    .collection('entries').doc(date)
+                    .set(data, { merge: true });
+            } catch (error) {
+                console.error('Error saving entry:', error);
+                alert('Error saving your entry. Please try again.');
+            }
+        }
+
+        async function loadUserData() {
+            const user = auth.currentUser;
+            if (!user) return;
+
+            const date = new Date().toISOString().split('T')[0];
+            try {
+                const doc = await db.collection('users').doc(user.uid)
+                    .collection('entries').doc(date).get();
+
+                if (doc.exists) {
+                    const data = doc.data();
+                    
+                    // Restore mood
+                    if (data.mood) {
+                        const moodEmoji = Array.from(document.querySelectorAll('.mood-emoji'))
+                            .find(emoji => emoji.textContent === data.mood);
+                        if (moodEmoji) {
+                            moodEmoji.style.backgroundColor = '#e8f5e9';
+                        }
+                    }
+
+                    // Restore daily note
+                    document.querySelector('.daily-note textarea').value = data.dailyNote || '';
+
+                    // Restore todos
+                    const todoContainer = document.querySelector('.todo-items');
+                    todoContainer.innerHTML = ''; // Clear existing todos
+                    data.todos.forEach(todo => {
+                        const todoItem = document.createElement('div');
+                        todoItem.className = 'todo-item';
+                        todoItem.innerHTML = `
+                            <input type="checkbox" ${todo.completed ? 'checked' : ''}>
+                            <input type="text" value="${todo.text}">
+                        `;
+                        todoContainer.appendChild(todoItem);
+                    });
+
+                    // Restore gratitude
+                    document.querySelector('.gratitude textarea').value = data.gratitude || '';
+                }
+            } catch (error) {
+                console.error('Error loading entry:', error);
+                alert('Error loading your entry. Please try again.');
+            }
+        }
+
+        function clearForm() {
+            document.querySelector('.daily-note textarea').value = '';
+            document.querySelector('.gratitude textarea').value = '';
+            document.querySelectorAll('.todo-item input[type="text"]').forEach(input => input.value = '');
+            document.querySelectorAll('.todo-item input[type="checkbox"]').forEach(checkbox => checkbox.checked = false);
+            document.querySelectorAll('.mood-emoji').forEach(emoji => emoji.style.backgroundColor = 'transparent');
+        }
+
+        // Event listeners for auto-saving
+        const saveTimeout = 1000; // 1 second
+        let saveTimer;
+
+        function scheduleAutoSave() {
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(saveJournalEntry, saveTimeout);
+        }
+
+        // Add auto-save to all inputs
+        document.querySelectorAll('textarea, input[type="text"], input[type="checkbox"]').forEach(element => {
+            element.addEventListener('input', scheduleAutoSave);
+            element.addEventListener('change', scheduleAutoSave);
+        });
+
+        document.querySelectorAll('.mood-emoji').forEach(emoji => {
+            emoji.addEventListener('click', () => {
+                document.querySelectorAll('.mood-emoji').forEach(e => e.style.backgroundColor = 'transparent');
+                emoji.style.backgroundColor = '#e8f5e9';
+                scheduleAutoSave();
+            });
+        });
+
+        // Initialize
+        if (auth.currentUser) {
+            loadUserData();
+        }
+    </script>
+</body>
+</html>

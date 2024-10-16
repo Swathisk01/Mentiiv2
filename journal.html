@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Journal</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            padding: 1rem;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            height: calc(100vh - 2rem);
+            margin: 0 auto;
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Cdefs%3E%3Cpattern id='leaves' patternUnits='userSpaceOnUse' width='100' height='100'%3E%3Cpath d='M0,0 Q25,25 50,0 Q75,-25 100,0' style='fill:none;stroke:%2390BE6D;stroke-width:1;opacity:0.1'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23leaves)'/%3E%3C/svg%3E");
+        }
+
+        h1 {
+            text-align: center;
+            color: #557153;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-family: 'Brush Script MT', cursive;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1rem;
+            height: calc(100% - 3rem);
+        }
+
+        .calendar {
+            border: 2px solid #557153;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .calendar-header {
+            color: #557153;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+
+        .calendar-day {
+            border: 1px solid #ddd;
+            padding: 5px;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .mood-board {
+            border: 2px solid #557153;
+            border-radius: 8px;
+            padding: 0.75rem;
+            height: fit-content;
+        }
+
+        .mood-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 3px;
+        }
+
+        .mood-emoji {
+            font-size: 1.2rem;
+            text-align: center;
+            cursor: pointer;
+            padding: 2px;
+        }
+
+        .daily-note {
+            border: 2px solid #557153;
+            border-radius: 8px;
+            padding: 0.75rem;
+            height: calc(100% - 250px); /* Adjusted to maintain calendar size */
+        }
+
+        textarea {
+            width: 100%;
+            height: calc(100% - 2rem);
+            border: none;
+            border-bottom: 1px solid #ddd;
+            resize: none;
+            padding: 5px;
+            line-height: 1.5;
+            background: transparent;
+            font-size: 0.9rem;
+        }
+
+        .todo-list, .gratitude {
+            border: 2px solid #557153;
+            border-radius: 8px;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.4rem;
+        }
+
+        .todo-item input[type="checkbox"] {
+            margin-right: 8px;
+        }
+
+        .todo-item input[type="text"] {
+            border: none;
+            border-bottom: 1px solid #ddd;
+            padding: 3px;
+            width: 100%;
+            background: transparent;
+            font-size: 0.9rem;
+        }
+
+        h3 {
+            color: #557153;
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        }
+
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .mood-board {
+            flex: 0 0 auto;
+            margin-bottom: 1rem;
+        }
+
+        .todo-list {
+            flex: 1 1 auto;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+        }
+
+        .gratitude {
+            flex: 0 0 150px;
+            margin-bottom: 0;
+        }
+
+        .gratitude textarea {
+            height: calc(100% - 1.5rem);
+        }
+
+        /* Custom scrollbar for todo list */
+        .todo-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .todo-list::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+
+        .todo-list::-webkit-scrollbar-thumb {
+            background: #557153;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Daily Journal</h1>
+        <div class="grid">
+            <div class="left-column">
+                <div class="calendar">
+                    <h3 class="calendar-header">September 2024</h3>
+                    <div class="calendar-grid" id="calendar"></div>
+                </div>
+                <div class="daily-note">
+                    <h3>Daily Note</h3>
+                    <textarea placeholder="Write your thoughts here..."></textarea>
+                </div>
+            </div>
+            <div class="right-column">
+                <div class="mood-board">
+                    <h3>Today's Mood</h3>
+                    <div class="mood-grid">
+                        <div class="mood-emoji">😄</div>
+                        <div class="mood-emoji">😍</div>
+                        <div class="mood-emoji">😢</div>
+                        <div class="mood-emoji">🤔</div>
+                        <div class="mood-emoji">😔</div>
+                        <div class="mood-emoji">😒</div>
+                        <div class="mood-emoji">😶</div>
+                        <div class="mood-emoji">🙂</div>
+                        <div class="mood-emoji">😪</div>
+                        <div class="mood-emoji">🤮</div>
+                        <div class="mood-emoji">🥱</div>
+                        <div class="mood-emoji">😱</div>
+                        <div class="mood-emoji">😫</div>
+                        <div class="mood-emoji">💀</div>
+                        <div class="mood-emoji">😡</div>
+                    </div>
+                </div>
+                <div class="todo-list">
+                    <h3>TO-DO LIST</h3>
+                    <div class="todo-items">
+                        <div class="todo-item">
+                            <input type="checkbox">
+                            <input type="text" placeholder="Add a task...">
+                        </div>
+                        <div class="todo-item">
+                            <input type="checkbox">
+                            <input type="text" placeholder="Add a task...">
+                        </div>
+                        <div class="todo-item">
+                            <input type="checkbox">
+                            <input type="text" placeholder="Add a task...">
+                        </div>
+                        <div class="todo-item">
+                            <input type="checkbox">
+                            <input type="text" placeholder="Add a task...">
+                        </div>
+                        <div class="todo-item">
+                            <input type="checkbox">
+                            <input type="text" placeholder="Add a task...">
+                        </div>
+                        <div class="todo-item">
+                            <input type="checkbox">
+                            <input type="text" placeholder="Add a task...">
+                        </div>
+                    </div>
+                </div>
+                <div class="gratitude">
+                    <h3>Today, I am grateful for...</h3>
+                    <textarea placeholder="List your gratitudes..."></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Generate calendar days
+        const calendar = document.getElementById('calendar');
+        const days = 30;
+        
+        for (let i = 1; i <= days; i++) {
+            const day = document.createElement('div');
+            day.className = 'calendar-day';
+            day.textContent = i;
+            calendar.appendChild(day);
+        }
+
+        // Make mood emojis selectable
+        const moodEmojis = document.querySelectorAll('.mood-emoji');
+        moodEmojis.forEach(emoji => {
+            emoji.addEventListener('click', () => {
+                moodEmojis.forEach(e => e.style.backgroundColor = 'transparent');
+                emoji.style.backgroundColor = '#e8f5e9';
+            });
+        });
+
+        // Save todo items to localStorage
+        const todoInputs = document.querySelectorAll('.todo-item input[type="text"]');
+        todoInputs.forEach(input => {
+            input.addEventListener('change', () => {
+                const todos = Array.from(todoInputs).map(input => input.value);
+                localStorage.setItem('todos', JSON.stringify(todos));
+            });
+        });
+
+        // Load saved todos
+        const savedTodos = JSON.parse(localStorage.getItem('todos') || '[]');
+        todoInputs.forEach((input, index) => {
+            if (savedTodos[index]) {
+                input.value = savedTodos[index];
+            }
+        });
+    </script>
+</body>
+</html>
