@@ -165,3 +165,34 @@ btn.addEventListener("click", function() {
     
     writer.innerHTML = quotes[random].writer;
 })
+
+
+// Text Submission
+document.getElementById('submitButton').addEventListener('click', async function() {
+  const text = document.getElementById('answerText').value;
+
+  const response = await fetch('/analyze-text', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text })
+  });
+
+  const result = await response.json();
+  alert(`Sentiment: ${result.label}, Score: ${result.score}`);
+});
+
+// Audio Submission
+async function submitAudioRecording(file) {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const response = await fetch('/analyze-audio', {
+      method: 'POST',
+      body: formData
+  });
+
+  const result = await response.json();
+  alert(`Transcribed Text: ${result.transcribed_text}, Sentiment: ${result.label}, Score: ${result.score}`);
+}
+
+

@@ -59,7 +59,7 @@
 
 </body>
 </html> -->
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -77,7 +77,7 @@
 
         <form id="dailyTestForm">
             <div id="questions-container">
-                <!-- Questions will be dynamically injected here -->
+                 Questions will be dynamically injected here 
             </div>
 
             <button type="submit" id="submit-btn">Submit</button>
@@ -87,5 +87,822 @@
     </div>
 
     <script src="kn.js"></script>
+</body>
+</html>-->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentii - Mental Health Assessment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #F4F9F4, #E3F2F1);
+            min-height: 100vh;
+            padding: 20px;
+            color: #2C3E50;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: #2C7873;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .progress-section {
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #eee;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #2C7873;
+            border-radius: 5px;
+            transition: width 0.3s ease;
+        }
+
+        .day-indicator {
+            background: #F4F9F4;
+            padding: 10px 20px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #2C7873;
+        }
+
+        .question-container {
+            margin: 20px 0;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 16px;
+            resize: vertical;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #2C7873;
+        }
+
+        .audio-controls {
+            margin-top: 15px;
+            background: #F4F9F4;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .audio-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .audio-preview {
+            margin-top: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .audio-preview.active {
+            display: block;
+        }
+
+        .recording-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #e74c3c;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .recording-indicator.active {
+            display: flex;
+        }
+
+        .pulse {
+            width: 10px;
+            height: 10px;
+            background: #e74c3c;
+            border-radius: 50%;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .streak-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 16px;
+            background: #F4F9F4;
+            border-radius: 15px;
+            font-weight: 500;
+        }
+
+        .streak-flame {
+            font-size: 24px;
+            animation: flame 1.5s ease-in-out infinite;
+            transform-origin: center bottom;
+        }
+
+        @keyframes flame {
+            0% { transform: scale(1) rotate(-5deg); }
+            50% { transform: scale(1.1) rotate(5deg); }
+            100% { transform: scale(1) rotate(-5deg); }
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .primary {
+            background: #2C7873;
+            color: white;
+        }
+
+        .secondary {
+            background: #6FB98F;
+            color: white;
+        }
+
+        button:not(:disabled):hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .recording {
+            background-color: #e74c3c !important;
+        }
+
+        .question-counter {
+            background: #F4F9F4;
+            padding: 8px 16px;
+            border-radius: 15px;
+            font-weight: 500;
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .audio-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-section">
+                <div class="logo">🌿</div>
+                <h1>Mentii</h1>
+            </div>
+            <div class="streak-section">
+                <span class="streak-flame">🔥</span>
+                <span id="streakCounter">Day 1 Streak</span>
+            </div>
+        </header>
+
+        <div class="card" id="assessmentCard">
+            <div class="day-indicator">Day <span id="dayNumber">1</span> of 7</div>
+
+            <div class="progress-section">
+                <h3>Today's Progress</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressBar" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div class="question-container" id="questionContainer">
+                <h2 id="questionText">How would you rate your overall mood today?</h2>
+                <textarea id="answerText" placeholder="Share your thoughts here..."></textarea>
+               
+                <div class="audio-controls">
+                    <div class="audio-buttons">
+                        <button class="secondary" id="recordButton">
+                            🎤 Start Recording
+                        </button>
+                    </div>
+                    
+                    <div class="recording-indicator">
+                        <div class="pulse"></div>
+                        Recording in progress...
+                    </div>
+
+                    <div class="audio-preview">
+                        <audio controls>
+                            <source src="/api/placeholder/400/320" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <div class="audio-actions">
+                            <button class="secondary" onclick="startNewRecording()">Re-record </button>
+                            <button class="secondary" onclick="deleteRecording()">Delete Recording</button>
+                    </div>
+                        </div>
+                </div> 
+            </div>
+
+            <div class="navigation">
+                <button class="secondary" id="prevButton" onclick="navigateQuestion(-1)" disabled>Previous</button>
+                <span class="question-counter">Question <span id="currentQuestionNum">1</span>/7</span>
+                <button class="secondary" id="nextButton" onclick="navigateQuestion(1)">Next</button>
+            </div>
+
+            <button class="primary" id="submitButton" onclick="analyzeText()" style="width: 100%; margin-top: 20px;" >
+                Submit Today's Assessment
+            </button>
+
+            <p id="result"></p>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            "How would you rate your overall mood today?",
+            "Did you experience any anxiety or stress today?",
+            "How well did you sleep last night?",
+            "Have you engaged in any enjoyable activities today?",
+            "How would you describe your energy levels?",
+            "Have you had any difficult thoughts or feelings today?",
+            "How connected do you feel to others today?"
+        ];
+
+        let currentQuestion = 0;
+        let answers = new Array(7).fill({ text: '', audio: null });
+        let streak = parseInt(localStorage.getItem('streak')) || 0;
+        let lastCompletionDate = localStorage.getItem('lastCompletionDate');
+
+        // Initialize
+        updateStreakDisplay();
+        checkStreak();
+
+
+
+        //changes
+//         document.getElementById('recordButton').addEventListener('click', startRecording);
+
+// function startRecording() {
+//     // Check if browser supports Speech Recognition API
+//     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+//     if (!SpeechRecognition){
+//         alert('Your browser does not support speech recognition. Please try a different browser.');
+//         return;
+//     }
+
+//     // Initialize the Speech Recognition object
+//     const recognition = new SpeechRecognition();
+//     recognition.lang = 'en-US';
+//     recognition.interimResults = false;
+//     recognition.maxAlternatives = 1;
+
+//     // Show the recording indicator
+//     document.querySelector('.recording-indicator').classList.add('active');
+
+//     // Start recognition
+//     recognition.start();
+
+//     recognition.onresult = (event) => {
+//         const transcript = event.results[0][0].transcript;
+        
+//         // Display the transcript in the answer text area
+//         document.getElementById('answerText').value = transcript;
+
+//         // Hide the recording indicator
+//         document.querySelector('.recording-indicator').classList.remove('active');
+//     };
+
+//     recognition.onerror = (event) => {
+//         console.error('Speech recognition error:', event.error);
+//         document.querySelector('.recording-indicator').classList.remove('active');
+//         alert('There was an error with the recording. Please try again.');
+//     };
+
+//     recognition.onend = () => {
+//         // If recognition ends without error, hide the recording indicator
+//         document.querySelector('.recording-indicator').classList.remove('active');
+//     };
+// }
+
+
+       //changes
+
+        function updateStreakDisplay() {
+            document.getElementById('streakCounter').textContent = `Day ${streak} Streak`;
+        }
+
+        function checkStreak() {
+            const today = new Date().toDateString();
+            if (lastCompletionDate) {
+                const lastDate = new Date(lastCompletionDate);
+                const daysDiff = Math.floor((new Date() - lastDate) / (1000 * 60 * 60 * 24));
+                
+                if (daysDiff > 1) {
+                    // Reset streak if more than a day has passed
+                    streak = 0;
+                    localStorage.setItem('streak', streak);
+                    updateStreakDisplay();
+                }
+            }
+        }
+
+        function navigateQuestion(direction) {
+            // Save current answer
+            const textArea = document.getElementById('answerText');
+            answers[currentQuestion] = {
+                ...answers[currentQuestion],
+                text: textArea.value
+            };
+
+            // Calculate new question index
+            const newIndex = currentQuestion + direction;
+            if (newIndex >= 0 && newIndex < questions.length) {
+                // Fade out
+                const container = document.getElementById('questionContainer');
+                container.style.opacity = 0;
+
+                setTimeout(() => {
+                    currentQuestion = newIndex;
+                    updateQuestion();
+                    updateNavigationButtons();
+                    updateProgress();
+                    // Fade in
+                    container.style.opacity = 1;
+                }, 300);
+            }
+        }
+
+        function updateQuestion() {
+            document.getElementById('questionText').textContent = questions[currentQuestion];
+            document.getElementById('currentQuestionNum').textContent = currentQuestion + 1;
+            document.getElementById('answerText').value = answers[currentQuestion]?.text || '';
+            
+            // Reset audio preview if there's no recorded audio
+            if (!answers[currentQuestion]?.audio) {
+                document.querySelector('.audio-preview').classList.remove('active');
+            }
+        }
+
+        function updateNavigationButtons() {
+            document.getElementById('prevButton').disabled = currentQuestion === 0;
+            document.getElementById('nextButton').disabled = currentQuestion === questions.length - 1;
+        }
+
+        function updateProgress() {
+            const answered = answers.filter(a => a.text.trim() || a.audio).length;
+            const progress = (answered / questions.length) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+            
+            // Enable submit button if all questions are answered
+            document.getElementById('submitButton').disabled = answered < questions.length;
+        }
+
+        // Audio Recording Logic
+        let isRecording = false;
+        let mediaRecorder = null;
+        let audioChunks = [];
+
+        document.getElementById('recordButton').addEventListener('click', toggleRecording);
+        document.getElementById('answerText').addEventListener('input', function() {
+            answers[currentQuestion] = {
+                ...answers[currentQuestion],
+                text: this.value
+            };
+            updateProgress();
+        });
+
+        async function toggleRecording() {
+            if (!isRecording) {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    mediaRecorder = new MediaRecorder(stream);
+                    audioChunks = [];
+
+                    mediaRecorder.ondataavailable = (event) => {
+                        audioChunks.push(event.data);
+                    };
+
+                    mediaRecorder.onstop = () => {
+                        const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                        const audioUrl = URL.createObjectURL(audioBlob);
+                        answers[currentQuestion].audio = audioBlob;
+                        showAudioPreview(audioUrl);
+                        updateProgress();
+                    };
+
+                    mediaRecorder.start();
+                    isRecording = true;
+                    updateRecordingUI(true);
+                } catch (err) {
+                    console.error('Error accessing microphone:', err);
+                    alert('Unable to access microphone. Please ensure you have granted permission.');
+                }
+            } else {
+                mediaRecorder.stop();
+                mediaRecorder.stream.getTracks().forEach(track => track.stop());
+                isRecording = false;
+                updateRecordingUI(false);
+            }
+        }
+
+        function updateRecordingUI(recording) {
+            const recordButton = document.getElementById('recordButton');
+            const recordingIndicator = document.querySelector('.recording-indicator');
+            
+            recordButton.textContent = recording ? '⏹️ Stop Recording' : '🎤 Start Recording';
+            recordButton.classList.toggle('recording', recording);
+            recordingIndicator.classList.toggle('active', recording);
+        }
+
+        function showAudioPreview(audioUrl) {
+            const preview = document.querySelector('.audio-preview');
+            const audio = preview.querySelector('audio');
+            audio.src = audioUrl;
+            preview.classList.add('active');
+        }
+
+        function startNewRecording() {
+            document.querySelector('.audio-preview').classList.remove('active');
+            toggleRecording();
+        }
+
+        function deleteRecording() {
+            answers[currentQuestion].audio = null;
+            document.querySelector('.audio-preview').classList.remove('active');
+            updateProgress();
+        }
+
+        document.getElementById('submitButton').addEventListener('click', async function() {
+            // Here you would normally send the data to your backend
+            // For demo purposes, we'll just update the streak
+            streak++;
+            localStorage.setItem('streak', streak);
+            localStorage.setItem('lastCompletionDate', new Date().toDateString());
+            updateStreakDisplay();
+            
+            alert('Assessment submitted successfully!');
+        });
+
+
+
+        
+        async function analyzeText() {
+            const text = document.getElementById('textInput').value;
+
+            const response = await fetch('http://localhost:5000/analyze-text', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text })
+            });
+
+            const result = await response.json();
+            document.getElementById('result').textContent = 'Sentiment: ' + result.sentiment;
+        }
+    
+      // This fetch request is sent to the backend route '/analyze-audio'
+async function submitAudioRecording(file) {
+    const formData = new FormData();
+    formData.append('file', file);  // The audio file sent to the backend
+
+    const response = await fetch('http://localhost:5000/analyze-audio', {  // Use the full URL
+        method: 'POST',
+        body: formData
+    });
+
+    const result = await response.json();
+    alert(`Transcribed Text: ${result.transcribed_text}, Sentiment: ${result.label}, Score: ${result.score}`);
+}
+
+
+
+document.getElementById('submitButton').addEventListener('click', async function() {
+    const answerText = document.getElementById('answerText').value;
+    const audioPath = answers[currentQuestion]?.audio || null;  // Handle audio path
+
+    const payload = {
+        user_id: 1,  // Replace with actual user ID
+        day: currentQuestion + 1,
+        text_answer: answerText,
+        audio_path: audioPath
+    };
+
+    try {
+        const response = await fetch('http://127.0.0.1:5000/submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        if (response.ok) {
+            alert('Assessment submitted successfully!');
+        } else {
+            alert('Failed to submit assessment.');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.');
+    }
+});
+
+
+// const questions = [
+//     "How would you rate your overall mood today?",
+//     "Did you experience any anxiety or stress today?",
+//     "How well did you sleep last night?",
+//     "Have you engaged in any enjoyable activities today?",
+//     "How would you describe your energy levels?",
+//     "Have you had any difficult thoughts or feelings today?",
+//     "How connected do you feel to others today?"
+// ];
+
+// let currentQuestion = 0;
+// let answers = new Array(questions.length).fill(null).map(() => ({ text: '', audio: null }));
+// let streak = parseInt(localStorage.getItem('streak')) || 0;
+// let lastCompletionDate = localStorage.getItem('lastCompletionDate');
+
+// // Initialize
+// updateStreakDisplay();
+// checkStreak();
+
+// // Speech Recognition
+// document.getElementById('recordButton').addEventListener('click', startRecording);
+
+// function startRecording() {
+//     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+//     if (!SpeechRecognition) {
+//         alert('Your browser does not support speech recognition. Please try a different browser.');
+//         return;
+//     }
+
+//     const recognition = new SpeechRecognition();
+//     recognition.lang = 'en-US';
+//     recognition.interimResults = false;
+//     recognition.maxAlternatives = 1;
+
+//     document.querySelector('.recording-indicator').classList.add('active');
+
+//     recognition.start();
+
+//     recognition.onresult = (event) => {
+//         const transcript = event.results[0][0].transcript;
+
+//         // Update the answer for the current question
+//         answers[currentQuestion].text = transcript;
+
+//         // Display the transcript in the answer text area
+//         document.getElementById('answerText').value = transcript;
+
+//         document.querySelector('.recording-indicator').classList.remove('active');
+//     };
+
+//     recognition.onerror = (event) => {
+//         console.error('Speech recognition error:', event.error);
+//         document.querySelector('.recording-indicator').classList.remove('active');
+//         alert('There was an error with the recording. Please try again.');
+//     };
+
+//     recognition.onend = () => {
+//         document.querySelector('.recording-indicator').classList.remove('active');
+//     };
+// }
+
+// // Update Streak Display
+// function updateStreakDisplay() {
+//     document.getElementById('streakCounter').textContent = `Day ${streak} Streak`;
+// }
+
+// function checkStreak() {
+//     const today = new Date().toDateString();
+//     if (lastCompletionDate) {
+//         const lastDate = new Date(lastCompletionDate);
+//         const daysDiff = Math.floor((new Date() - lastDate) / (1000 * 60 * 60 * 24));
+        
+//         if (daysDiff > 1) {
+//             streak = 0;
+//             localStorage.setItem('streak', streak);
+//             updateStreakDisplay();
+//         }
+//     }
+// }
+
+// // Navigation
+// function navigateQuestion(direction) {
+//     const textArea = document.getElementById('answerText');
+//     answers[currentQuestion].text = textArea.value;
+
+//     const newIndex = currentQuestion + direction;
+//     if (newIndex >= 0 && newIndex < questions.length) {
+//         const container = document.getElementById('questionContainer');
+//         container.style.opacity = 0;
+
+//         setTimeout(() => {
+//             currentQuestion = newIndex;
+//             updateQuestion();
+//             updateNavigationButtons();
+//             updateProgress();
+//             container.style.opacity = 1;
+//         }, 300);
+//     }
+// }
+
+// function updateQuestion() {
+//     document.getElementById('questionText').textContent = questions[currentQuestion];
+//     document.getElementById('currentQuestionNum').textContent = currentQuestion + 1;
+//     document.getElementById('answerText').value = answers[currentQuestion]?.text || '';
+// }
+
+// function updateNavigationButtons() {
+//     document.getElementById('prevButton').disabled = currentQuestion === 0;
+//     document.getElementById('nextButton').disabled = currentQuestion === questions.length - 1;
+// }
+
+// function updateProgress() {
+//     const answered = answers.filter(a => a.text.trim() || a.audio).length;
+//     const progress = (answered / questions.length) * 100;
+//     document.getElementById('progressBar').style.width = `${progress}%`;
+//     document.getElementById('submitButton').disabled = answered < questions.length;
+// }
+
+// // Analyze Text
+// async function analyzeText() {
+//     const text = document.getElementById('answerText').value;
+
+//     const response = await fetch('http://localhost:5000/analyze-text', {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify({ text })
+//     });
+
+//     const result = await response.json();
+//     document.getElementById('result').textContent = 'Sentiment: ' + result.sentiment;
+// }
+
+// // Audio Submission
+// async function submitAudioRecording(file) {
+//     const formData = new FormData();
+//     formData.append('file', file); // The audio file sent to the backend
+
+//     const response = await fetch('http://localhost:5000/analyze-audio', { // Use the full URL
+//         method: 'POST',
+//         body: formData
+//     });
+
+//     const result = await response.json();
+//     alert(`Transcribed Text: ${result.transcribed_text}, Sentiment: ${result.label}, Score: ${result.score}`);
+// }
+
+// // Submit Button
+// document.getElementById('submitButton').addEventListener('click', async function() {
+//     const answerText = document.getElementById('answerText').value;
+//     const audioPath = answers[currentQuestion]?.audio || null;
+
+//     const payload = {
+//         user_id: 1,  // Replace with actual user ID
+//         day: currentQuestion + 1,
+//         text_answer: answerText,
+//         audio_path: audioPath
+//     };
+
+//     try {
+//         const response = await fetch('http://127.0.0.1:5000/submit', {
+//             method: 'POST',
+//             headers: { 'Content-Type': 'application/json' },
+//             body: JSON.stringify(payload)
+//         });
+
+//         if (response.ok) {
+//             alert('Assessment submitted successfully!');
+//         } else {
+//             alert('Failed to submit assessment.');
+//         }
+//     } catch (error) {
+//         console.error('Error:', error);
+//         alert('An error occurred. Please try again.');
+//     }
+// });
+
+// document.getElementById('submitButton').addEventListener('click', async function() {
+//     const answerText = document.getElementById('answerText').value;
+//     const audioPath = answers[currentQuestion]?.audio || null;
+
+//     const payload = {
+//         user_id: 1,  // Replace with actual user ID
+//         day: currentQuestion + 1,
+//         text_answer: answerText,
+//         audio_path: audioPath
+//     };
+
+//     try {
+//         const response = await fetch('http://127.0.0.1:5000/submit', {
+//             method: 'POST',
+//             headers: { 'Content-Type': 'application/json' },
+//             body: JSON.stringify(payload)
+//         });
+
+//         if (response.ok) {
+//             alert('Assessment submitted successfully!');
+//         } else {
+//             const errorData = await response.json();
+//             alert(`Failed to submit assessment: ${errorData.message || 'Unknown error'}`);
+//         }
+//     } catch (error) {
+//         console.error('Error:', error);
+//         alert(`An error occurred: ${error.message || 'Please try again.'}`);
+//     }
+// });
+
+
+
+    </script>
 </body>
 </html>
