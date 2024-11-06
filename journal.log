@@ -1,0 +1,77 @@
+2024-11-06 15:31:23 POST request received
+2024-11-06 15:31:24 POST data: Array
+(
+    [date] => 2024-11-06
+    [entry] => Great i will complete this any how i can do it.
+)
+
+2024-11-06 15:31:24 User ID: 1
+2024-11-06 15:31:24 Date: 2024-11-06
+2024-11-06 15:31:24 Entry: Great i will complete this any how i can do it.
+2024-11-06 15:31:25 Entry saved successfully
+2024-11-06 15:31:25 POST request received
+2024-11-06 15:31:25 POST data: Array
+(
+    [date] => 2024-11-06
+    [entry] => Great i will complete this any how i can do it.
+)
+
+2024-11-06 15:31:25 User ID: 1
+2024-11-06 15:31:25 Date: 2024-11-06
+2024-11-06 15:31:25 Entry: Great i will complete this any how i can do it.
+2024-11-06 15:31:25 Entry saved successfully
+2024-11-06 16:07:12 POST request received
+2024-11-06 16:07:12 POST data: Array
+(
+    [date] => 2024-11-06
+    [entry] => Hello hi dear
+)
+
+2024-11-06 16:07:12 User ID: 1
+2024-11-06 16:07:12 Date: 2024-11-06
+2024-11-06 16:07:12 Entry: Hello hi dear
+2024-11-06 16:07:13 Entry saved successfully
+2024-11-06 16:10:46 POST request received
+2024-11-06 16:10:46 POST data: Array
+(
+    [date] => 2024-11-06
+    [entry] => Hello hi dear
+)
+
+2024-11-06 16:10:46 User ID: 1
+2024-11-06 16:10:46 Date: 2024-11-06
+2024-11-06 16:10:46 Entry: Hello hi dear
+2024-11-06 16:10:46 Entry saved successfully
+2024-11-06 16:10:59 POST request received
+2024-11-06 16:10:59 POST data: Array
+(
+    [date] => 2024-11-06
+    [entry] => Hi
+)
+
+2024-11-06 16:10:59 User ID: 1
+2024-11-06 16:10:59 Date: 2024-11-06
+2024-11-06 16:10:59 Entry: Hi
+2024-11-06 16:10:59 Entry saved successfully
+2024-11-06 16:12:36 POST request received
+2024-11-06 16:12:36 POST data: Array
+(
+    [date] => 2024-11-06
+    [entry] => Hi hello
+)
+
+2024-11-06 16:12:36 User ID: 1
+2024-11-06 16:12:36 Date: 2024-11-06
+2024-11-06 16:12:36 Entry: Hi hello
+2024-11-06 16:12:36 Entry saved successfully
+2024-11-06 16:15:34 POST request received
+2024-11-06 16:15:34 POST data: Array
+(
+    [date] => 2024-11-06
+    [entry] => Hello I am Kayra
+)
+
+2024-11-06 16:15:34 User ID: 2
+2024-11-06 16:15:34 Date: 2024-11-06
+2024-11-06 16:15:34 Entry: Hello I am Kayra
+2024-11-06 16:15:34 Entry saved successfully

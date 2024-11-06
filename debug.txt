@@ -1,0 +1,87 @@
+[2024-11-06 07:17:54] POST request received
+[2024-11-06 07:17:57] POST data: Array
+(
+    [date] => 2024-11-06
+    [entry] => Great Dayyyy
+)
+
+[2024-11-06 07:17:57] User ID: 1
+[2024-11-06 07:17:57] Date: 2024-11-06
+[2024-11-06 07:17:57] Entry: Great Dayyyy
+[2024-11-06 07:19:38] POST request received
+[2024-11-06 07:19:38] POST data: Array
+(
+    [date] => 2024-11-06
+    [entry] => Great Dayyyy
+)
+
+[2024-11-06 07:19:38] User ID: 1
+[2024-11-06 07:19:38] Date: 2024-11-06
+[2024-11-06 07:19:38] Entry: Great Dayyyy
+[2024-11-06 07:19:45] Entry saved successfully
+[2024-11-06 07:38:11] POST request received
+[2024-11-06 07:38:11] POST data: Array
+(
+    [date] => 2024-11-07
+    [entry] => I am super happy
+)
+
+[2024-11-06 07:38:11] User ID: 1
+[2024-11-06 07:38:11] Date: 2024-11-07
+[2024-11-06 07:38:11] Entry: I am super happy
+[2024-11-06 07:38:11] Entry saved successfully
+[2024-11-06 07:38:11] POST request received
+[2024-11-06 07:38:11] POST data: Array
+(
+    [date] => 2024-11-07
+    [entry] => I am super happy
+)
+
+[2024-11-06 07:38:11] User ID: 1
+[2024-11-06 07:38:11] Date: 2024-11-07
+[2024-11-06 07:38:11] Entry: I am super happy
+[2024-11-06 07:38:12] Entry saved successfully
+[2024-11-06 07:40:40] POST request received
+[2024-11-06 07:40:40] POST data: Array
+(
+    [date] => 2024-11-06
+    [entry] => Happy and stressed a bit
+)
+
+[2024-11-06 07:40:40] User ID: 1
+[2024-11-06 07:40:40] Date: 2024-11-06
+[2024-11-06 07:40:40] Entry: Happy and stressed a bit
+[2024-11-06 07:40:40] Entry saved successfully
+[2024-11-06 07:40:40] POST request received
+[2024-11-06 07:40:40] POST data: Array
+(
+    [date] => 2024-11-06
+    [entry] => Happy and stressed a bit
+)
+
+[2024-11-06 07:40:40] User ID: 1
+[2024-11-06 07:40:40] Date: 2024-11-06
+[2024-11-06 07:40:40] Entry: Happy and stressed a bit
+[2024-11-06 07:40:41] Entry saved successfully
+[2024-11-06 13:06:30] POST request received
+[2024-11-06 13:06:30] POST data: Array
+(
+    [date] => 2024-11-06
+    [entry] => Was a very bad day.....
+)
+
+[2024-11-06 13:06:30] User ID: 1
+[2024-11-06 13:06:30] Date: 2024-11-06
+[2024-11-06 13:06:30] Entry: Was a very bad day.....
+[2024-11-06 13:06:32] Entry saved successfully
+[2024-11-06 13:06:32] POST request received
+[2024-11-06 13:06:32] POST data: Array
+(
+    [date] => 2024-11-06
+    [entry] => Was a very bad day.....
+)
+
+[2024-11-06 13:06:32] User ID: 1
+[2024-11-06 13:06:32] Date: 2024-11-06
+[2024-11-06 13:06:32] Entry: Was a very bad day.....
+[2024-11-06 13:06:32] Entry saved successfully

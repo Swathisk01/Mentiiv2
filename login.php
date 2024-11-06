@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -25,4 +25,30 @@
     </div>
     <script src="login.js"></script>
 </body>
-</html>
+</html> -->
+
+
+
+<?php
+// login.php
+session_start();
+include 'db.php';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    // Fetch user from database
+    $stmt = $pdo->prepare("SELECT id, password FROM users WHERE username = ?");
+    $stmt->execute([$username]);
+    $user = $stmt->fetch();
+
+    if ($user && password_verify($password, $user['password'])) {
+        $_SESSION['user_id'] = $user['id'];
+        header("Location: journal.html"); // Redirect to dashboard
+        exit();
+    } else {
+        echo "Invalid credentials";
+    }
+}
+?>

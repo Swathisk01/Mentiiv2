@@ -1,3 +1,728 @@
+<!-- <!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Journal</title>
+    <style>
+        :root {
+            --background: #f0f7f4;           /* Soft green background */
+            --card-bg: #ffffff;              /* White background for cards */
+            --primary: #2a9d8f;              /* Calm teal for primary accents */
+            --secondary: #264653;            /* Dark greenish blue */
+            --accent: #e76f51;               /* Soft red-orange for highlights */
+            --text: #264653;                 /* Dark text color for readability */
+            --light-text: #4A5568;
+            --shadow: rgba(38, 70, 83, 0.1); /* Shadow color */
+
+            --hover-bg: #2a9d8f;             /* Hover effect for buttons */
+            --hover-shadow: rgba(38, 70, 83, 0.2); /* Stronger shadow on hover */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Work Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            max-width: 1200px;
+            width: 100%;
+            height: 100vh;
+            /* overflow: hidden; */
+            
+        }
+
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .section {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            box-shadow: 0 6px 20px var(--hover-shadow);
+            transform: translateY(-5px);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        /* Notes Section */
+        .notes-section textarea {
+            width: 100%;
+            height: 500px;
+            padding: 1rem;
+            border: 2px solid var(--secondary);
+            border-radius: 8px;
+            resize: none;
+            font-size: 1rem;
+            line-height: 1.5;
+            background-color: var(--background);
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        .notes-section textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 5px var(--hover-shadow);
+        }
+
+        /* Full-Size Calendar Section */
+        .calendar-section {
+            width: 100%;
+        }
+
+        .calendar {
+            width: 100%;
+            font-size: 1rem;
+            border-collapse: collapse;
+        }
+
+        .calendar th, .calendar td {
+            padding: 0.8rem;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .calendar .today {
+            background: var(--accent);
+            color: white;
+        }
+
+        .calendar td:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Todo Section */
+        .todo-section {
+            width: 100%;
+        }
+
+        .todo-input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            background: var(--background);
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        .todo-input:focus {
+            border-color: var(--accent);
+            outline: none;
+            box-shadow: 0 0 5px var(--hover-shadow);
+        }
+
+        .todo-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .todo-btn:hover {
+            background: var(--hover-bg);
+            box-shadow: 0 4px 10px var(--hover-shadow);
+            transform: translateY(-3px);
+        }
+
+        .todo-list {
+            list-style: none;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem;
+            background-color: var(--background);
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            opacity: 0.9;
+            transition: all 0.3s ease;
+        }
+
+        .todo-item.completed {
+            text-decoration: line-through;
+            color: #9e9e9e;
+        }
+
+        .todo-item:hover {
+            background: var(--calm);
+            box-shadow: 0 2px 5px var(--shadow);
+        }
+
+        .date-completed {
+            font-size: 0.8rem;
+            color: var(--secondary);
+        }
+
+        .save-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+}
+
+.save-btn:hover {
+    background: var(--hover-bg);
+    box-shadow: 0 4px 10px var(--hover-shadow);
+    transform: translateY(-3px);
+}
+
+.calendar td.selected {
+    background-color: var(--primary);
+    color: white;
+}
+
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <section class="section notes-section">
+            <h2 class="section-title"><i>Daily Note...</i></h2> 
+            <textarea placeholder="Write your thoughts here... How are you feeling today?"></textarea>
+            <button class="save-btn">Save Entry</button> 
+            <div class="success-message" style="display: none; color: green; margin-top: 10px;">Entry saved successfully!</div>  
+            
+            <button onclick="testDatabaseConnection()" style="margin: 10px;">Test Database Connection</button>
+        </section>
+
+        <div class="right-column">
+            
+            <section class="section calendar-section">
+                <h2 class="section-title">📅 Calendar</h2>
+                <table class="calendar"></table>
+            </section>
+
+            <section class="section todo-section">
+                <h2 class="section-title">✨ Daily Tasks</h2>
+                <div class="todo-form">
+                    <input type="text" class="todo-input" placeholder="Add a task...">
+                    <button class="todo-btn">I Got This! 💪</button>
+                </div>
+                <ul class="todo-list"></ul>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // Calendar functionality
+        // function generateCalendar() {
+        //     const calendar = document.querySelector('.calendar');
+        //     const date = new Date();
+        //     const month = date.getMonth();
+        //     const year = date.getFullYear();
+        //     const today = date.getDate();
+
+        //     const daysInMonth = new Date(year, month + 1, 0).getDate();
+        //     const firstDay = new Date(year, month, 1).getDay();
+
+        //     const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+        //     let html = `
+        //         <tr><th colspan="7">${monthNames[month]} ${year}</th></tr>
+        //         <tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
+        //     `;
+
+        //     let day = 1;
+        //     for (let i = 0; i < 6; i++) {
+        //         html += '<tr>';
+        //         for (let j = 0; j < 7; j++) {
+        //             if (i === 0 && j < firstDay) {
+        //                 html += '<td></td>';
+        //             } else if (day > daysInMonth) {
+        //                 break;
+        //             } else {
+        //                 const isToday = day === today ? 'today' : '';
+        //                 html += `<td class="${isToday}">${day}</td>`;
+        //                 day++;
+        //             }
+        //         }
+        //         html += '</tr>';
+        //         if (day > daysInMonth) break;
+        //     }
+
+        //     calendar.innerHTML = html;
+        // }
+
+
+//         function generateCalendar() {
+//     const calendar = document.querySelector('.calendar');
+//     const date = new Date();
+//     const month = date.getMonth();
+//     const year = date.getFullYear();
+//     const today = date.getDate();
+
+//     const daysInMonth = new Date(year, month + 1, 0).getDate();
+//     const firstDay = new Date(year, month, 1).getDay();
+
+//     const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+//     let html = `
+//         <tr><th colspan="7">${monthNames[month]} ${year}</th></tr>
+//         <tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
+//     `;
+
+//     let day = 1;
+//     for (let i = 0; i < 6; i++) {
+//         html += '<tr>';
+//         for (let j = 0; j < 7; j++) {
+//             if (i === 0 && j < firstDay) {
+//                 html += '<td></td>';
+//             } else if (day > daysInMonth) {
+//                 break;
+//             } else {
+//                 const isToday = day === today ? 'today' : '';
+//                 html += `<td class="${isToday}" data-date="${year}-${month + 1}-${day}">${day}</td>`;
+//                 day++;
+//             }
+//         }
+//         html += '</tr>';
+//         if (day > daysInMonth) break;
+//     }
+
+//     calendar.innerHTML = html;
+
+//     // Add event listeners to each date cell
+//     const dateCells = document.querySelectorAll('.calendar td');
+//     dateCells.forEach(cell => {
+//         cell.addEventListener('click', () => {
+//             const selectedDate = cell.getAttribute('data-date');
+//             // Trigger a function to handle journal entry for the selected date
+//             handleJournalEntry(selectedDate);
+//         });
+//     });
+// }
+
+// function handleJournalEntry(date) {
+//     const textarea = document.querySelector('.notes-section textarea');
+//     // Fetch and display journal entry for the selected date from the backend
+//     fetch(`/getJournalEntry?date=${date}`)
+//         .then(response => response.json())
+//         .then(data => {
+//             textarea.value = data.entry || ''; // Load existing entry or clear
+//         });
+// }
+
+
+// Fixed Calendar Generation Function
+function generateCalendar() {
+    const calendar = document.querySelector('.calendar');
+    const date = new Date();
+    const month = date.getMonth();
+    const year = date.getFullYear();
+    const today = date.getDate();
+
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const firstDay = new Date(year, month, 1).getDay();
+
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+    let html = `
+        <tr><th colspan="7">${monthNames[month]} ${year}</th></tr>
+        <tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
+    `;
+
+    let day = 1;
+    for (let i = 0; i < 6; i++) {
+        html += '<tr>';
+        for (let j = 0; j < 7; j++) {
+            if (i === 0 && j < firstDay) {
+                html += '<td></td>';
+            } else if (day > daysInMonth) {
+                break;
+            } else {
+                const isToday = day === today ? 'today' : '';
+                const formattedMonth = (month + 1).toString().padStart(2, '0');
+                const formattedDay = day.toString().padStart(2, '0');
+                const dateStr = `${year}-${formattedMonth}-${formattedDay}`;
+                html += `<td class="${isToday}" data-date="${dateStr}">${day}</td>`;
+                day++;
+            }
+        }
+        html += '</tr>';
+        if (day > daysInMonth) break;
+    }
+
+    calendar.innerHTML = html;
+
+    // Add click events to calendar cells
+    const dateCells = document.querySelectorAll('.calendar td[data-date]');
+    dateCells.forEach(cell => {
+        cell.addEventListener('click', () => {
+            // Remove selected class from all cells
+            dateCells.forEach(c => c.classList.remove('selected'));
+            // Add selected class to clicked cell
+            cell.classList.add('selected');
+            const selectedDate = cell.getAttribute('data-date');
+            loadJournalEntry(selectedDate);
+        });
+    });
+}
+
+// Function to load journal entry for selected date
+function loadJournalEntry(date) {
+    fetch(`get_entry.php?date=${date}`)
+        .then(response => response.json())
+        .then(data => {
+            const textarea = document.querySelector('.notes-section textarea');
+            textarea.value = data.entry || '';
+            // Store the current date as a data attribute
+            textarea.setAttribute('data-current-date', date);
+        })
+        .catch(error => {
+            console.error('Error loading journal entry:', error);
+        });
+}
+
+// // Function to save journal entry
+// function saveJournalEntry(date, entry) {
+//     const formData = new FormData();
+//     formData.append('date', date);
+//     formData.append('entry', entry);
+
+//     return fetch('journal.php', {
+//         method: 'POST',
+//         body: formData
+//     })
+//     .then(response => response.json())
+//     .then(data => {
+//         if (data.success) {
+//             const successMessage = document.querySelector('.success-message');
+//             successMessage.style.display = 'block';
+//             setTimeout(() => {
+//                 successMessage.style.display = 'none';
+//             }, 3000);
+//         } else {
+//             throw new Error(data.error || 'Failed to save entry');
+//         }
+//     })
+//     .catch(error => {
+//         console.error('Error saving journal entry:', error);
+//         alert('Failed to save your entry. Please try again.');
+//     });
+// }
+
+
+
+
+// Update the save function in your JavaScript
+function saveJournalEntry(date, entry) {
+    // Format date to ensure YYYY-MM-DD format
+    const formattedDate = new Date(date).toISOString().split('T')[0];
+    
+    const formData = new URLSearchParams();
+    formData.append('date', formattedDate);
+    formData.append('entry', entry);
+
+    console.log('Saving entry:', {
+        date: formattedDate,
+        entry: entry
+    });
+
+    fetch('journal.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: formData.toString(),
+        credentials: 'include' // Important for session handling
+    })
+    .then(response => response.text())
+    .then(text => {
+        console.log('Raw server response:', text);
+        try {
+            return JSON.parse(text);
+        } catch (e) {
+            console.error('Failed to parse server response:', e);
+            throw new Error('Invalid server response');
+        }
+    })
+    .then(data => {
+        console.log('Processed response:', data);
+        if (data.success) {
+            const successMessage = document.querySelector('.success-message');
+            successMessage.style.display = 'block';
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+            }, 3000);
+        } else {
+            throw new Error(data.error || 'Failed to save entry');
+        }
+    })
+    .catch(error => {
+        console.error('Error saving entry:', error);
+        alert('Failed to save your entry. Error: ' + error.message);
+    });
+}
+
+// Update the event listener setup
+document.addEventListener('DOMContentLoaded', () => {
+    const saveButton = document.querySelector('.save-btn');
+    const textarea = document.querySelector('.notes-section textarea');
+
+    saveButton.addEventListener('click', () => {
+        const selectedDate = document.querySelector('.calendar td.selected')?.getAttribute('data-date') 
+            || new Date().toISOString().split('T')[0];
+        const entry = textarea.value.trim();
+        
+        if (!entry) {
+            alert('Please enter some text for your journal entry.');
+            return;
+        }
+
+        console.log('Attempting to save:', {
+            date: selectedDate,
+            entry: entry
+        });
+
+        saveJournalEntry(selectedDate, entry);
+    });
+});
+
+// Add this test function to verify the setup
+function testDatabaseConnection() {
+    const testEntry = {
+        date: new Date().toISOString().split('T')[0],
+        entry: 'Test entry at ' + new Date().toTimeString()
+    };
+
+    console.log('Testing database connection with:', testEntry);
+
+    const formData = new URLSearchParams();
+    formData.append('date', testEntry.date);
+    formData.append('entry', testEntry.entry);
+
+    fetch('journal.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: formData.toString(),
+        credentials: 'include'
+    })
+    .then(response => response.text())
+    .then(text => {
+        console.log('Test response:', text);
+        alert('Check console for test results');
+    })
+    .catch(error => {
+        console.error('Test failed:', error);
+        alert('Test failed: ' + error.message);
+    });
+}
+
+// Initialize the application
+document.addEventListener('DOMContentLoaded', () => {
+    generateCalendar();
+    initTodoList();
+
+    const saveButton = document.querySelector('.save-btn');
+    const textarea = document.querySelector('.notes-section textarea');
+
+    // Handle save button click
+    saveButton.addEventListener('click', () => {
+        const currentDate = textarea.getAttribute('data-current-date') || 
+                           new Date().toISOString().split('T')[0];
+        const entry = textarea.value.trim();
+        
+        if (!entry) {
+            alert('Please enter some text for your journal entry.');
+            return;
+        }
+
+        saveJournalEntry(currentDate, entry);
+    });
+
+    // Load today's entry when the page loads
+    const today = new Date().toISOString().split('T')[0];
+    loadJournalEntry(today);
+});
+
+        // Todo list functionality
+        function initTodoList() {
+            const todoInput = document.querySelector('.todo-input');
+            const todoButton = document.querySelector('.todo-btn');
+            const todoList = document.querySelector('.todo-list');
+
+            todoButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (!todoInput.value.trim()) return;
+
+                const todoDiv = document.createElement('div');
+                todoDiv.classList.add('todo-item');
+
+                const newTodo = document.createElement('li');
+                newTodo.innerText = todoInput.value;
+                todoDiv.appendChild(newTodo);
+
+                const completedButton = document.createElement('button');
+                completedButton.innerHTML = '✔️';
+                completedButton.classList.add('todo-btn');
+                todoDiv.appendChild(completedButton);
+
+                const trashButton = document.createElement('button');
+                trashButton.innerHTML = '🗑️';
+                trashButton.classList.add('todo-btn');
+                todoDiv.appendChild(trashButton);
+
+                todoList.appendChild(todoDiv);
+                todoInput.value = '';
+            });
+
+            todoList.addEventListener('click', (e) => {
+                const item = e.target;
+                if (item.innerHTML === '🗑️') {
+                    item.parentElement.remove();
+                }
+                if (item.innerHTML === '✔️') {
+                    const todoItem = item.parentElement;
+                    todoItem.classList.toggle('completed');
+                    const date = new Date();
+                    const formattedDate = date.toLocaleDateString();
+                    const dateCompleted = document.createElement('span');
+                    dateCompleted.classList.add('date-completed');
+                    dateCompleted.innerText = ` (Completed on: ${formattedDate})`;
+                    todoItem.appendChild(dateCompleted);
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            generateCalendar();
+            initTodoList();
+        });
+
+
+
+
+
+
+
+        //new
+        document.addEventListener('DOMContentLoaded', () => {
+            generateCalendar();
+            initTodoList();
+
+            const saveButton = document.querySelector('.save-btn');
+            const successMessage = document.querySelector('.success-message');
+            const textarea = document.querySelector('.notes-section textarea');
+
+            saveButton.addEventListener('click', () => {
+                const selectedDateElement = document.querySelector('.calendar .today');
+                const selectedDate = selectedDateElement 
+                    ? selectedDateElement.getAttribute('data-date') 
+                    : new Date().toISOString().split('T')[0];
+                
+                const entry = textarea.value.trim();
+
+                if (!entry) {
+                    alert("Please enter some text for your journal entry.");
+                    return;
+                }
+
+                fetch('/journal.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `date=${selectedDate}&entry=${encodeURIComponent(entry)}`,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        successMessage.style.display = 'block';
+                        setTimeout(() => {
+                            successMessage.style.display = 'none';
+                        }, 3000);
+                    } else {
+                        alert(`Failed to save the entry: ${data.error || "Please try again."}`);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("There was an error. Please try again.");
+                });
+            });
+
+            // Save automatically when the textarea changes
+            textarea.addEventListener('change', () => {
+                const selectedDateElement = document.querySelector('.calendar .today');
+                const selectedDate = selectedDateElement 
+                    ? selectedDateElement.getAttribute('data-date') 
+                    : new Date().toISOString().split('T')[0];
+                
+                const entry = textarea.value.trim();
+
+                if (!entry) return;
+
+                fetch('/journal.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `date=${selectedDate}&entry=${encodeURIComponent(entry)}`,
+                }).then(response => response.json())
+                  .then(data => {
+                      if (data.success) {
+                          console.log('Entry saved successfully');
+                      }
+                  });
+            });
+        });
+    </script>
+</body>
+</html>-->
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,293 +730,481 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daily Journal</title>
     <style>
+         :root {
+            --background: #f0f7f4;           /* Soft green background */
+            --card-bg: #ffffff;              /* White background for cards */
+            --primary: #2a9d8f;              /* Calm teal for primary accents */
+            --secondary: #264653;            /* Dark greenish blue */
+            --accent: #e76f51;               /* Soft red-orange for highlights */
+            --text: #264653;                 /* Dark text color for readability */
+            --light-text: #4A5568;
+            --shadow: rgba(38, 70, 83, 0.1); /* Shadow color */
+
+            --hover-bg: #2a9d8f;             /* Hover effect for buttons */
+            --hover-shadow: rgba(38, 70, 83, 0.2); /* Stronger shadow on hover */
+        }
+
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            box-sizing: border-box;
+            font-family: 'Work Sans', sans-serif;
         }
 
         body {
-            background-color: #f5f5f5;
-            padding: 1rem;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        .container {
-            max-width: 1200px;
-            height: calc(100vh - 2rem);
-            margin: 0 auto;
-            background: white;
-            padding: 1rem;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Cdefs%3E%3Cpattern id='leaves' patternUnits='userSpaceOnUse' width='100' height='100'%3E%3Cpath d='M0,0 Q25,25 50,0 Q75,-25 100,0' style='fill:none;stroke:%2390BE6D;stroke-width:1;opacity:0.1'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23leaves)'/%3E%3C/svg%3E");
-        }
-
-        h1 {
-            text-align: center;
-            color: #557153;
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            font-family: 'Brush Script MT', cursive;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 1rem;
-            height: calc(100% - 3rem);
-        }
-
-        .calendar {
-            border: 2px solid #557153;
-            border-radius: 8px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .calendar-header {
-            color: #557153;
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-        }
-
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 5px;
-        }
-
-        .calendar-day {
-            border: 1px solid #ddd;
-            padding: 5px;
-            text-align: center;
-            font-size: 1rem;
-        }
-
-        .mood-board {
-            border: 2px solid #557153;
-            border-radius: 8px;
-            padding: 0.75rem;
-            height: fit-content;
-        }
-
-        .mood-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 3px;
-        }
-
-        .mood-emoji {
-            font-size: 1.2rem;
-            text-align: center;
-            cursor: pointer;
-            padding: 2px;
-        }
-
-        .daily-note {
-            border: 2px solid #557153;
-            border-radius: 8px;
-            padding: 0.75rem;
-            height: calc(100% - 250px); /* Adjusted to maintain calendar size */
-        }
-
-        textarea {
-            width: 100%;
-            height: calc(100% - 2rem);
-            border: none;
-            border-bottom: 1px solid #ddd;
-            resize: none;
-            padding: 5px;
-            line-height: 1.5;
-            background: transparent;
-            font-size: 0.9rem;
-        }
-
-        .todo-list, .gratitude {
-            border: 2px solid #557153;
-            border-radius: 8px;
-            padding: 0.75rem;
-            margin-bottom: 1rem;
-        }
-
-        .todo-item {
+            background-color: var(--background);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 2rem;
             display: flex;
+            justify-content: center;
             align-items: center;
-            margin-bottom: 0.4rem;
         }
 
-        .todo-item input[type="checkbox"] {
-            margin-right: 8px;
-        }
-
-        .todo-item input[type="text"] {
-            border: none;
-            border-bottom: 1px solid #ddd;
-            padding: 3px;
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            max-width: 1200px;
             width: 100%;
-            background: transparent;
-            font-size: 0.9rem;
-        }
-
-        h3 {
-            color: #557153;
-            margin-bottom: 0.75rem;
-            font-size: 1.1rem;
+            height: 100vh;
+            /* overflow: hidden; */
+            
         }
 
         .right-column {
             display: flex;
             flex-direction: column;
-            height: 100%;
+            gap: 1.5rem;
         }
 
-        .mood-board {
-            flex: 0 0 auto;
+        .section {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            box-shadow: 0 6px 20px var(--hover-shadow);
+            transform: translateY(-5px);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             margin-bottom: 1rem;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        /* Notes Section */
+        .notes-section textarea {
+            width: 100%;
+            height: 500px;
+            padding: 1rem;
+            border: 2px solid var(--secondary);
+            border-radius: 8px;
+            resize: none;
+            font-size: 1rem;
+            line-height: 1.5;
+            background-color: var(--background);
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        .notes-section textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 5px var(--hover-shadow);
+        }
+
+        /* Full-Size Calendar Section */
+        .calendar-section {
+            width: 100%;
+        }
+
+        .calendar {
+            width: 100%;
+            font-size: 1rem;
+            border-collapse: collapse;
+        }
+
+        .calendar th, .calendar td {
+            padding: 0.8rem;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .calendar .today {
+            background: var(--accent);
+            color: white;
+        }
+
+        .calendar td:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Todo Section */
+        .todo-section {
+            width: 100%;
+        }
+
+        .todo-input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            background: var(--background);
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        .todo-input:focus {
+            border-color: var(--accent);
+            outline: none;
+            box-shadow: 0 0 5px var(--hover-shadow);
+        }
+
+        .todo-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .todo-btn:hover {
+            background: var(--hover-bg);
+            box-shadow: 0 4px 10px var(--hover-shadow);
+            transform: translateY(-3px);
         }
 
         .todo-list {
-            flex: 1 1 auto;
+            list-style: none;
+            max-height: 250px;
             overflow-y: auto;
-            margin-bottom: 1rem;
         }
 
-        .gratitude {
-            flex: 0 0 150px;
-            margin-bottom: 0;
+        .todo-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem;
+            background-color: var(--background);
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            opacity: 0.9;
+            transition: all 0.3s ease;
         }
 
-        .gratitude textarea {
-            height: calc(100% - 1.5rem);
+        .todo-item.completed {
+            text-decoration: line-through;
+            color: #9e9e9e;
         }
 
-        /* Custom scrollbar for todo list */
-        .todo-list::-webkit-scrollbar {
-            width: 6px;
+        .todo-item:hover {
+            background: var(--calm);
+            box-shadow: 0 2px 5px var(--shadow);
         }
 
-        .todo-list::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 3px;
+        .date-completed {
+            font-size: 0.8rem;
+            color: var(--secondary);
         }
 
-        .todo-list::-webkit-scrollbar-thumb {
-            background: #557153;
-            border-radius: 3px;
-        }
+        .save-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+}
+
+.save-btn:hover {
+    background: var(--hover-bg);
+    box-shadow: 0 4px 10px var(--hover-shadow);
+    transform: translateY(-3px);
+}
+
+.calendar td.selected {
+    background-color: var(--primary);
+    color: white;
+}
+
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Daily Journal</h1>
-        <div class="grid">
-            <div class="left-column">
-                <div class="calendar">
-                    <h3 class="calendar-header">September 2024</h3>
-                    <div class="calendar-grid" id="calendar"></div>
+    <div class="dashboard">
+        <section class="section notes-section">
+            <h2 class="section-title"><i>Daily Note...</i></h2>
+            <textarea placeholder="Write your thoughts here... How are you feeling today?"></textarea>
+            <button class="save-btn">Save Entry</button>
+            <div class="success-message" style="display: none; color: green; margin-top: 10px; font-weight: 300px;">Entry saved successfully!</div>
+            
+            <!-- <button onclick="testDatabaseConnection()" style="margin: 10px;">Test Database Connection</button> -->
+        </section>
+
+        <div class="right-column">
+            <section class="section calendar-section">
+                <h2 class="section-title">📅 Calendar</h2>
+                <table class="calendar"></table>
+            </section>
+
+            <section class="section todo-section">
+                <h2 class="section-title">✨ Daily Tasks</h2>
+                <div class="todo-form">
+                    <input type="text" class="todo-input" placeholder="Add a task...">
+                    <button class="todo-btn">I Got This! 💪</button>
                 </div>
-                <div class="daily-note">
-                    <h3>Daily Note</h3>
-                    <textarea placeholder="Write your thoughts here..."></textarea>
-                </div>
-            </div>
-            <div class="right-column">
-                <div class="mood-board">
-                    <h3>Today's Mood</h3>
-                    <div class="mood-grid">
-                        <div class="mood-emoji">😄</div>
-                        <div class="mood-emoji">😍</div>
-                        <div class="mood-emoji">😢</div>
-                        <div class="mood-emoji">🤔</div>
-                        <div class="mood-emoji">😔</div>
-                        <div class="mood-emoji">😒</div>
-                        <div class="mood-emoji">😶</div>
-                        <div class="mood-emoji">🙂</div>
-                        <div class="mood-emoji">😪</div>
-                        <div class="mood-emoji">🤮</div>
-                        <div class="mood-emoji">🥱</div>
-                        <div class="mood-emoji">😱</div>
-                        <div class="mood-emoji">😫</div>
-                        <div class="mood-emoji">💀</div>
-                        <div class="mood-emoji">😡</div>
-                    </div>
-                </div>
-                <div class="todo-list">
-                    <h3>TO-DO LIST</h3>
-                    <div class="todo-items">
-                        <div class="todo-item">
-                            <input type="checkbox">
-                            <input type="text" placeholder="Add a task...">
-                        </div>
-                        <div class="todo-item">
-                            <input type="checkbox">
-                            <input type="text" placeholder="Add a task...">
-                        </div>
-                        <div class="todo-item">
-                            <input type="checkbox">
-                            <input type="text" placeholder="Add a task...">
-                        </div>
-                        <div class="todo-item">
-                            <input type="checkbox">
-                            <input type="text" placeholder="Add a task...">
-                        </div>
-                        <div class="todo-item">
-                            <input type="checkbox">
-                            <input type="text" placeholder="Add a task...">
-                        </div>
-                        <div class="todo-item">
-                            <input type="checkbox">
-                            <input type="text" placeholder="Add a task...">
-                        </div>
-                    </div>
-                </div>
-                <div class="gratitude">
-                    <h3>Today, I am grateful for...</h3>
-                    <textarea placeholder="List your gratitudes..."></textarea>
-                </div>
-            </div>
+                <ul class="todo-list"></ul>
+            </section>
         </div>
     </div>
+
     <script>
-        // Generate calendar days
-        const calendar = document.getElementById('calendar');
-        const days = 30;
-        
-        for (let i = 1; i <= days; i++) {
-            const day = document.createElement('div');
-            day.className = 'calendar-day';
-            day.textContent = i;
-            calendar.appendChild(day);
+        // Calendar functionality
+        function generateCalendar() {
+            const calendar = document.querySelector('.calendar');
+            const date = new Date();
+            const month = date.getMonth();
+            const year = date.getFullYear();
+            const today = date.getDate();
+
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const firstDay = new Date(year, month, 1).getDay();
+
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+            let html = `
+                <tr><th colspan="7">${monthNames[month]} ${year}</th></tr>
+                <tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
+            `;
+
+            let day = 1;
+            for (let i = 0; i < 6; i++) {
+                html += '<tr>';
+                for (let j = 0; j < 7; j++) {
+                    if (i === 0 && j < firstDay) {
+                        html += '<td></td>';
+                    } else if (day > daysInMonth) {
+                        break;
+                    } else {
+                        const isToday = day === today ? 'today' : '';
+                        const formattedMonth = (month + 1).toString().padStart(2, '0');
+                        const formattedDay = day.toString().padStart(2, '0');
+                        const dateStr = `${year}-${formattedMonth}-${formattedDay}`;
+                        html += `<td class="${isToday}" data-date="${dateStr}">${day}</td>`;
+                        day++;
+                    }
+                }
+                html += '</tr>';
+                if (day > daysInMonth) break;
+            }
+
+            calendar.innerHTML = html;
+
+            // Add click events to calendar cells
+            const dateCells = document.querySelectorAll('.calendar td[data-date]');
+            dateCells.forEach(cell => {
+                cell.addEventListener('click', () => {
+                    // Remove selected class from all cells
+                    dateCells.forEach(c => c.classList.remove('selected'));
+                    // Add selected class to clicked cell
+                    cell.classList.add('selected');
+                    const selectedDate = cell.getAttribute('data-date');
+                    loadJournalEntry(selectedDate);
+                });
+            });
         }
 
-        // Make mood emojis selectable
-        const moodEmojis = document.querySelectorAll('.mood-emoji');
-        moodEmojis.forEach(emoji => {
-            emoji.addEventListener('click', () => {
-                moodEmojis.forEach(e => e.style.backgroundColor = 'transparent');
-                emoji.style.backgroundColor = '#e8f5e9';
+        function loadJournalEntry(date) {
+            fetch(`get_entry.php?date=${date}`)
+                .then(response => response.json())
+                .then(data => {
+                    const textarea = document.querySelector('.notes-section textarea');
+                    textarea.value = data.entry || '';
+                    // Store the current date as a data attribute
+                    textarea.setAttribute('data-current-date', date);
+                })
+                .catch(error => {
+                    console.error('Error loading journal entry:', error);
+                });
+        }
+
+        function saveJournalEntry(date, entry) {
+            // Format date to ensure YYYY-MM-DD format
+            const formattedDate = new Date(date).toISOString().split('T')[0];
+
+            const formData = new URLSearchParams();
+            formData.append('date', formattedDate);
+            formData.append('entry', entry);
+
+            console.log('Saving entry:', {
+                date: formattedDate,
+                entry: entry
             });
+
+            fetch('journal.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: formData.toString(),
+                credentials: 'include' // Important for session handling
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Processed response:', data);
+                if (data.success) {
+                    const successMessage = document.querySelector('.success-message');
+                    successMessage.style.display = 'block';
+                    setTimeout(() => {
+                        successMessage.style.display = 'none';
+                    }, 3000);
+                } else {
+                    throw new Error(data.error || 'Failed to save entry');
+                }
+            })
+            .catch(error => {
+                console.error('Error saving entry:', error);
+                alert('Failed to save your entry. Error: ' + error.message);
+            });
+        }
+
+        // Todo list functionality
+        function initTodoList() {
+            const todoInput = document.querySelector('.todo-input');
+            const todoButton = document.querySelector('.todo-btn');
+            const todoList = document.querySelector('.todo-list');
+
+            todoButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (!todoInput.value.trim()) return;
+
+                const todoDiv = document.createElement('div');
+                todoDiv.classList.add('todo-item');
+
+                const newTodo = document.createElement('li');
+                newTodo.innerText = todoInput.value;
+                todoDiv.appendChild(newTodo);
+
+                const completedButton = document.createElement('button');
+                completedButton.innerHTML = '✔️';
+                completedButton.classList.add('todo-btn');
+                todoDiv.appendChild(completedButton);
+
+                const trashButton = document.createElement('button');
+                trashButton.innerHTML = '🗑️';
+                trashButton.classList.add('todo-btn');
+                todoDiv.appendChild(trashButton);
+
+                todoList.appendChild(todoDiv);
+                todoInput.value = '';
+            });
+
+            todoList.addEventListener('click', (e) => {
+                const item = e.target;
+                if (item.innerHTML === '🗑️') {
+                    item.parentElement.remove();
+                }
+                if (item.innerHTML === '✔️') {
+                    const todoItem = item.parentElement;
+                    todoItem.classList.toggle('completed');
+                    const date = new Date();
+                    const formattedDate = date.toLocaleDateString();
+                    const dateCompleted = document.createElement('span');
+                    dateCompleted.classList.add('date-completed');
+                    dateCompleted.innerText = ` (Completed on: ${formattedDate})`;
+                    todoItem.appendChild(dateCompleted);
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            generateCalendar();
+            initTodoList();
+
+            const saveButton = document.querySelector('.save-btn');
+            const successMessage = document.querySelector('.success-message');
+            const textarea = document.querySelector('.notes-section textarea');
+
+            saveButton.addEventListener('click', () => {
+                const selectedDateElement = document.querySelector('.calendar .today');
+                const selectedDate = selectedDateElement 
+                    ? selectedDateElement.getAttribute('data-date') 
+                    : new Date().toISOString().split('T')[0];
+                
+                const entry = textarea.value.trim();
+
+                if (!entry) {
+                    alert("Please enter some text for your journal entry.");
+                    return;
+                }
+
+                saveJournalEntry(selectedDate, entry);
+            });
+
+            // Save automatically when the textarea changes
+        //     textarea.addEventListener('change', () => {
+        //         const selectedDateElement = document.querySelector('.calendar .today');
+        //         const selectedDate = selectedDateElement 
+        //             ? selectedDateElement.getAttribute('data-date') 
+        //             : new Date().toISOString().split('T')[0];
+                
+        //         const entry = textarea.value.trim();
+
+        //         if (!entry) return;
+
+        //         saveJournalEntry(selectedDate, entry);
+        //     });
         });
 
-        // Save todo items to localStorage
-        const todoInputs = document.querySelectorAll('.todo-item input[type="text"]');
-        todoInputs.forEach(input => {
-            input.addEventListener('change', () => {
-                const todos = Array.from(todoInputs).map(input => input.value);
-                localStorage.setItem('todos', JSON.stringify(todos));
-            });
-        });
+        function testDatabaseConnection() {
+            const testEntry = {
+                date: new Date().toISOString().split('T')[0],
+                entry: 'Test entry at ' + new Date().toTimeString()
+            };
 
-        // Load saved todos
-        const savedTodos = JSON.parse(localStorage.getItem('todos') || '[]');
-        todoInputs.forEach((input, index) => {
-            if (savedTodos[index]) {
-                input.value = savedTodos[index];
-            }
-        });
+            console.log('Testing database connection with:', testEntry);
+
+            const formData = new URLSearchParams();
+            formData.append('date', testEntry.date);
+            formData.append('entry', testEntry.entry);
+
+            fetch('journal.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: formData.toString(),
+                credentials: 'include'
+            })
+            .then(response => response.text())
+            .then(text => {
+                console.log('Test response:', text);
+                alert('Check console for test results');
+            })
+            .catch(error => {
+                console.error('Test failed:', error);
+                alert('Test failed: ' + error.message);
+            });
+        }
     </script>
 </body>
 </html>
