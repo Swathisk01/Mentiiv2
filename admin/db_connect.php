@@ -1,3 +1,8 @@
 <?php 
 
-$conn= new mysqli('localhost','root','','event_db')or die("Could not connect to mysql".mysqli_error($con));
+$conn = new mysqli('localhost', 'root', '', 'event_db');
+
+if ($conn->connect_error) {
+    die("Could not connect to MySQL: " . $conn->connect_error);
+}
+?>
