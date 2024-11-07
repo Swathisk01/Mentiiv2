@@ -225,6 +225,8 @@ span.hightlight{
                                     <a href="calmzone.html">Calm Zone</a>
                                     <a href="#csection">Community</a>
                                     <a href="about.html">About Us</a>
+                                    <a href="colorp.html">Color</a>
+
                                 </div>
                             </div>
                        </div>
