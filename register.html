@@ -6,40 +6,107 @@
     <link rel="stylesheet" href="styles.css">
     <style>
 /* Additional styles for register page */
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Body Styling */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: rgba(224, 175, 241, 0.4); /* Slight opacity for a soft effect */
+}
+
+/* Register Container Styling */
 .register-container {
     max-width: 400px;
-    margin: 100px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    padding: 30px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     text-align: center;
 }
 
+/* Heading Styling */
 .register-container h2 {
+    font-size: 1.8rem;
+    color: #333;
     margin-bottom: 20px;
 }
 
-.register-container label, .register-container input, .register-container button {
-    display: block;
-    width: 100%;
-    margin-bottom: 10px;
+/* Form Styling */
+.register-container form {
+    display: flex;
+    flex-direction: column;
 }
 
-.register-container input, .register-container button {
-    padding: 10px;
+/* Label Styling */
+.register-container label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #555;
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+/* Input Styling */
+.register-container input[type="text"],
+.register-container input[type="password"] {
+    padding: 12px;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    transition: border-color 0.3s;
 }
 
+.register-container input[type="text"]:focus,
+.register-container input[type="password"]:focus {
+    border-color: #0077cc;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 119, 204, 0.2);
+}
+
+/* Button Styling */
 .register-container button {
+    padding: 12px;
     background-color: #333;
     color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .register-container button:hover {
     background-color: #555;
+}
+
+/* Link Styling */
+.register-container p {
+    font-size: 0.9rem;
+    color: #777;
+    margin-top: 15px;
+}
+
+.register-container a {
+    color: #0077cc;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.register-container a:hover {
+    text-decoration: underline;
 }
 
 
