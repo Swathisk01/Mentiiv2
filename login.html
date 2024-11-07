@@ -2,15 +2,104 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login to Mentii</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Body Styling */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            /* background-color    : #e6c3ed; */
+            background-color: rgba(226, 179, 242, 0.4);
+        }
+
+        /* Container Styling */
+        .login-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        /* Form Styling */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Label Styling */
+        label {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Input Styling */
+        input[type="text"],
+        input[type="password"] {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #0056b3;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 86, 179, 0.2);
+        }
+
+        /* Button Styling */
+        button {
+            padding: 10px;
+            background-color: #0056b3;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #00408a;
+        }
+
+        /* Heading Styling */
+        h2 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-    <form action="login.php" method="POST">
-        <label for="username">Username:</label>
-        <input type="text" name="username" required>
-        <label for="password">Password:</label>
-        <input type="password" name="password" required>
-        <button type="submit">Login</button>
-    </form>
+    <div class="login-container">
+        <h2>Login to Mentii</h2>
+        <form action="login.php" method="POST">
+            <label for="username">Username:</label>
+            <input type="text" name="username" required>
+            <label for="password">Password:</label>
+            <input type="password" name="password" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
 </body>
 </html>
