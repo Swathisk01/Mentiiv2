@@ -223,9 +223,12 @@ span.hightlight{
                                 <div id="part2">
                                     <a href="knowyourself.html">Know Yourself</a>
                                     <a href="calmzone.html">Calm Zone</a>
+                                    <a href="colorp.html">Color</a>
+                                    <a href="journal.html">Journal</a>
+                                    <a href="userdashboard.php">Dashboard</a>
                                     <a href="#csection">Community</a>
                                     <a href="about.html">About Us</a>
-                                    <a href="colorp.html">Color</a>
+                                    <a href="register.html">Register</a>
 
                                 </div>
                             </div>

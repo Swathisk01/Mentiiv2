@@ -1,4 +1,4 @@
-<!-- 
+<!-- <!-- 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -408,6 +408,12 @@
     </div>
 
     <script>
+
+localStorage.setItem('user_id', data.user_id);
+
+const userId = localStorage.getItem('user_id');
+
+
         const questions = [
             "How would you rate your overall mood today?",
             "Did you experience any anxiety or stress today?",
@@ -670,11 +676,12 @@ document.getElementById('submitButton').addEventListener('click', async function
     const audioPath = answers[currentQuestion]?.audio || null;  // Handle audio path
 
     const payload = {
-        user_id: 1,  // Replace with actual user ID
-        day: currentQuestion + 1,
-        text_answer: answerText,
-        audio_path: audioPath
-    };
+    user_id: userId,
+    day: currentQuestion + 1,
+    text_answer: answerText,
+    audio_path: audioPath
+};
+
 
     try {
         const response = await fetch('http://127.0.0.1:5000/submit', {
